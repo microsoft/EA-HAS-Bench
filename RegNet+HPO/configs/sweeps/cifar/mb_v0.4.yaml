@@ -1,0 +1,115 @@
+DESC:
+NAME: cifar/mb_v0.4
+SETUP:
+  # Number of configs to sample
+  NUM_CONFIGS: 200000
+  # SAMPLER for RegNet
+  SAMPLERS:
+    OPTIM.MAX_EPOCH:
+      TYPE: value_sampler
+      VALUES: [50, 100, 200]    
+    OPTIM.BASE_LR:
+      TYPE: value_sampler
+      VALUES: [0.001, 0.003, 0.005, 0.01, 0.03, 0.05, 0.1, 0.3, 0.5, 1.0]
+    OPTIM.OPTIMIZER:
+      TYPE: value_sampler
+      VALUES: ['sgd', 'adam', 'adamw']
+    OPTIM.LR_POLICY:
+      TYPE: value_sampler
+      VALUES: ['cos', 'exp', 'lin']
+    TRAIN.CUTOUT_LENGTH:
+      TYPE: value_sampler
+      VALUES: [0, 16]
+    REGNET:
+      TYPE: regnet_sampler
+      DEPTH: [6, 15]
+      W0: [48, 128]
+      WA: [8.0, 32.0]
+      WM: [2.5, 3.0]
+      GROUP_W: [1, 32]
+    
+  # CONSTRAINTS for complexity (roughly based on R-56)
+  CONSTRAINTS:
+    CX:
+      FLOPS: [0.12e+9, 0.13e+9]
+      PARAMS: [0, 2.0e+6]
+      ACTS: [0, 1.0e+6]
+    REGNET:
+      NUM_STAGES: [2, 2]
+  # BASE_CFG is R-56 with large batch size and stronger augmentation
+  BASE_CFG:
+    MODEL:
+      TYPE: regnet
+      NUM_CLASSES: 10
+    REGNET:
+      STEM_TYPE: res_stem_cifar
+      SE_ON: True
+      STEM_W: 16
+    OPTIM:
+      BASE_LR: 1.0
+      MIN_LR: 1.0e-6
+      LR_POLICY: cos
+      MAX_EPOCH: 50
+      MOMENTUM: 0.9
+      NESTEROV: True
+      WARMUP_EPOCHS: 5
+      WEIGHT_DECAY: 0.0005
+      EMA_ALPHA: 0.00025
+      EMA_UPDATE_PERIOD: 32
+    BN:
+      USE_CUSTOM_WEIGHT_DECAY: True
+    TRAIN:
+      DATASET: cifar10
+      SPLIT: train
+      BATCH_SIZE: 1024
+      IM_SIZE: 32
+      MIXED_PRECISION: True
+      LABEL_SMOOTHING: 0.1
+      # MIXUP_ALPHA: 0.5
+    TEST:
+      DATASET: cifar10
+      SPLIT: test
+      BATCH_SIZE: 1000
+      IM_SIZE: 32
+    NUM_GPUS: 1
+    DATA_LOADER:
+      NUM_WORKERS: 4
+    LOG_PERIOD: 25
+    VERBOSE: False
+# Launch config options
+LAUNCH:
+  PARTITION: devlab
+  NUM_GPUS: 1
+  PARALLEL_JOBS: 32
+  TIME_LIMIT: 60
+# Analyze config options
+ANALYZE:
+  PLOT_METRIC_VALUES: True
+  PLOT_COMPLEXITY_VALUES: True
+  PLOT_CURVES_BEST: 3
+  PLOT_CURVES_WORST: 0
+  PLOT_MODELS_BEST: 8
+  PLOT_MODELS_WORST: 0
+  # EXTRA_SWEEP_NAMES: ["cifar/cifar_best", "cifar/modulebench_v0.1", ]
+  METRICS: [regnet_depth, regnet_w0, regnet_wa, regnet_wm, regnet_gw, lr, wd, lr_wd]
+  COMPLEXITY: [flops, params, acts, memory, epoch_fw_bw, epoch_time]
+  PRE_FILTERS: {done: [0, 1, 1]}
+  SPLIT_FILTERS:
+    # lr=0.001: {cfg.OPTIM.BASE_LR: [0.001, 0.001, 0.001]}
+    # lr=0.01: {cfg.OPTIM.BASE_LR: [0.01, 0.01, 0.01]}
+    # lr=0.1: {cfg.OPTIM.BASE_LR: [0.1, 0.1, 0.1]}
+    # lr=1.0: {cfg.OPTIM.BASE_LR: [1, 1, 1]}
+    # epochs=050: {cfg.OPTIM.MAX_EPOCH: [50, 50, 50]}
+    # epochs=100: {cfg.OPTIM.MAX_EPOCH: [100, 100, 100]}
+    # epochs=200: {cfg.OPTIM.MAX_EPOCH: [200, 200, 200]}
+    # lr_polic=cos: {cfg.OPTIM.LR_POLICY: [cos, cos, cos]}
+    # lr_polic=exp: {cfg.OPTIM.LR_POLICY: [exp, exp, exp]}
+    # lr_polic=lin: {cfg.OPTIM.LR_POLICY: [lin, lin, lin]}
+    # aug=none: {cfg.TRAIN.CUTOUT_LENGTH: [0,0,0]}
+    # aug=cutout: {cfg.TRAIN.CUTOUT_LENGTH: [16, 16, 16]}
+    optim=sgd: {cfg.OPTIM.OPTIMIZER: [sgd, sgd, sgd]}
+    optim=adam: {cfg.OPTIM.OPTIMIZER: [adam, adam, adam]}
+    optim=adamw: {cfg.OPTIM.OPTIMIZER: [adamw, adamw, adamw]}
+    # aug=none: {cfg.TRAIN.AUGMENT: ["","",""]}
+    # aug=aa: {cfg.TRAIN.AUGMENT: [AutoAugment,AutoAugment,AutoAugment]}
+    # aug=ra:  {cfg.TRAIN.AUGMENT: [RandAugment_N2_M0.5,RandAugment_N2_M0.5,RandAugment_N2_M0.5]}
