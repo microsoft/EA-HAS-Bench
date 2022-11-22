@@ -27,18 +27,16 @@ The EA-HAS-Bench dataset provides the following three types of metrics to evalua
 ### Dataset statistics
 The left plot shows the validation accuracy box plots for each NAS benchmark in CIFAR-10. The right plot shows a comparison of training time, training energy consumption (TEC), and test accuracy in the dataset.
 
-<figure class="half">
-    
-</figure>
-
 <div align="center">
-   <img src="BSC\figures\Box_plot.jpg" height=160/><img src="BSC\figures\Tiny_Acc_as_color.jpg" height=160/>
+   <img src="BSC\figures\Box_plot.jpg" height=300/><img src="BSC\figures\Tiny_Acc_as_color.jpg" height=300/>
 </div>
 
 Although training the model for a longer period is likely to yield a higher energy cost, the final cost still depends on many other factors including power (i.e., consumed energy per hour). The left and right plots of Figure also verifies the conclusion, where the models in the Pareto Frontier on the accuracy-runtime coordinate (right figure) are not always in the Pareto Frontier on the accuracy-TEC coordinate (left figure), showing that training time and energy cost are not equivalent. 
 
-<center class="half">
-    <img src="BSC\figures\Tiny_Acc_Cost.jpg" width="292"/><img src="BSC\figures\Tiny_Acc_Time.jpg" width="300"/>
+<div align="center">
+   <img src="BSC\figures\Tiny_Acc_Cost.jpg" height=300/><img src="BSC\figures\Tiny_Acc_Time.jpg" height=300/>
+</div>
+    
 </center>
 
 ## Installation
