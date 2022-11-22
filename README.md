@@ -11,8 +11,8 @@ Most of the existing conventional benchmarks like `NAS-Bench-101` do not directl
 </p>
 
 ## Dataset Overview
-### EA-HAS-BENCH Search Space
-Unlike the search space of existing mainstream NAS-Bench that focuses only on network architectures, our EA-HAS-Bench consists of a combination of two parts: the network architecture space-$\mathrm{RegNet}$ and the hyperparameter space for optimization and training, in order to cover diversified configurations that affect both performance and energy consumption. The details of the search space are shown in Table.
+### EA-HAS-Bench's Search Space
+Unlike the search space of existing mainstream NAS-Bench that focuses only on network architectures, our EA-HAS-Bench consists of a combination of two parts: the network architecture space- $\mathrm{RegNet}$  and the hyperparameter space for optimization and training, in order to cover diversified configurations that affect both performance and energy consumption. The details of the search space are shown in Table.
 
 <p align="center">
 <img src="BSC\figures\search_space.png" alt="SearchSpace" width="80%">
@@ -27,14 +27,14 @@ The EA-HAS-Bench dataset provides the following three types of metrics to evalua
 ### Dataset statistics
 The left plot shows the validation accuracy box plots for each NAS benchmark in CIFAR-10. The right plot shows a comparison of training time, training energy consumption (TEC), and test accuracy in the dataset.
 <center class="half">
-    <img src="BSC\figures\Box_plot.jpg" width="379"/>   
-    <img src="BSC\figures\Tiny_Acc_as_color.jpg" width="400"/>
+    <img src="BSC\figures\Box_plot.jpg" width="284.5"/>   
+    <img src="BSC\figures\Tiny_Acc_as_color.jpg" width="300"/>
 </center>
 Although training the model for a longer period is likely to yield a higher energy cost, the final cost still depends on many other factors including power (i.e., consumed energy per hour). The left and right plots of Figure also verifies the conclusion, where the models in the Pareto Frontier on the accuracy-runtime coordinate (right figure) are not always in the Pareto Frontier on the accuracy-TEC coordinate (left figure), showing that training time and energy cost are not equivalent. 
 
 <center class="half">
-    <img src="BSC\figures\Tiny_Acc_Cost.jpg" width="389"/>   
-    <img src="BSC\figures\Tiny_Acc_Time.jpg" width="400"/>
+    <img src="BSC\figures\Tiny_Acc_Cost.jpg" width="292"/>   
+    <img src="BSC\figures\Tiny_Acc_Time.jpg" width="300"/>
 </center>
 
 ## Installation
@@ -95,7 +95,7 @@ Results will be saved in ``results/``.
 
 
 ## How to Re-create EA-HAS-Bench from Scratch
-### Sampling points in $\mathrm{RegNet}$ + hpo (See RegNet)
+### Sampling points in $\mathrm{RegNet}$ + hpo
 For EA-HAS-Bench’s search space that contains both model architectures and hyperparameters, we use random search (RS) to sample unbiased data to build a robust surrogate benchmark.
 
 The following command will train all architecture candidate in the size search space with 90 epochs and use the random seed of 777. If you want to use a different number of training epochs, please replace 90 with it, such as 01 or 12.
@@ -111,7 +111,7 @@ After training these candidate architectures, please use the following command t
 python tools/sweep_collect.py
 ```
 
-### Creating Bézier Curves-based surrogated model (See BSC)
+### Creating Bézier Curves-based surrogated model
 To fit a Bézier Curves-based surrogated model surrogate model run
 ```
 cd BSC
@@ -151,7 +151,3 @@ trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
-<<<<<<< HEAD
-=======
-
->>>>>>> master
