@@ -28,7 +28,7 @@ The EA-HAS-Bench dataset provides the following three types of metrics to evalua
 The left plot shows the validation accuracy box plots for each NAS benchmark in CIFAR-10. The right plot shows a comparison of training time, training energy consumption (TEC), and test accuracy in the dataset.
 
 <cfigure class="half">
-    <img src="BSC\figures\Box_plot.jpg" width="284.5"/><img src="BSC\figures\Tiny_Acc_as_color.jpg" width="300"/>
+    <img src="BSC\figures\Box_plot.jpg" width="88"/><img src="BSC\figures\Tiny_Acc_as_color.jpg" width="100"/>
 </figure>
 
 Although training the model for a longer period is likely to yield a higher energy cost, the final cost still depends on many other factors including power (i.e., consumed energy per hour). The left and right plots of Figure also verifies the conclusion, where the models in the Pareto Frontier on the accuracy-runtime coordinate (right figure) are not always in the Pareto Frontier on the accuracy-TEC coordinate (left figure), showing that training time and energy cost are not equivalent. 
@@ -98,7 +98,7 @@ Results will be saved in ``results/``.
 ### Sampling points in $\mathrm{RegNet}$ + hpo
 For EA-HAS-Bench’s search space that contains both model architectures and hyperparameters, we use random search (RS) to sample unbiased data to build a robust surrogate benchmark.
 
-The following command will train all architecture candidate in the size search space with 90 epochs and use the random seed of 777. If you want to use a different number of training epochs, please replace 90 with it, such as 01 or 12.
+The following command will train all architecture candidate in the search space.
 ```
 cd RegNet+HPO
 python tools/azure_sweep.py --mode amlt --config_path configs\sweeps\cifar\mb_v0.4.yaml
