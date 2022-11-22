@@ -48,10 +48,14 @@ cd ea_nas_bench
 cat requirements.txt | xargs -n 1 -L 1 pip install
 pip install -e .
 ```
-
+### Surrogate Models
 Download the pretrained [surrogate models]() and place them into ``BSC/checkpoints/``. The current models are v0.1. 
 
 NOTE: This codebase is still subject to changes. Upcoming updates include improved versions of the surrogate models and code for all experiments from the paper. The API may still be subject to changes.
+
+### Small Tabular Benchmark
+Besides providing a large-scale proxy benchmark and the tens of thousands of sampling points used to construct it, we also provide a small real tabular benchmark.
+We redefine a very small joint search space with a size of 500. The latest benchmark file of NAS-Toy can be downloaded from [One Drive]().
 
 ## Using the API
 The api is located in [`api.py`](https://github.com/microsoft/EA-HAS-Bench/blob/main/api.py).
@@ -117,7 +121,7 @@ python tools/sweep_collect.py
 To fit a Bézier Curves-based surrogated model surrogate model run
 ```
 cd BSC
-python3 fit_model.py --search_space regnet --model bezier_nn_STAR
+python fit_model.py --search_space regnet --model bezier_nn_STAR
 ```
 
 ## Citation
