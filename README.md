@@ -27,7 +27,7 @@ The EA-HAS-Bench dataset provides the following three types of metrics to evalua
 ### Dataset statistics
 The left plot shows the validation accuracy box plots for each NAS benchmark in CIFAR-10. The right plot shows a comparison of training time, training energy consumption (TEC), and test accuracy in the dataset.
 
-<cfigure class="half">
+<figure class="half">
     <img src="BSC\figures\Box_plot.jpg" width="88"/><img src="BSC\figures\Tiny_Acc_as_color.jpg" width="100"/>
 </figure>
 
