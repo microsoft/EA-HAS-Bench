@@ -1,0 +1,40 @@
+from setuptools import setup, find_packages
+
+setup(
+    name = 'nas_bench_x11',
+    version = '1.0',
+    author = 'Shuguang Dou, Xinyang Jiang, Cairong Zhao, Dongshen Li',
+    author_email = 'xinyangjiang@microsoft.com',
+    description = 'Energy-aware HAS Benchmark',
+    license = 'MIT License',
+    keywords = ['AutoML', 'NAS', 'Deep Learning'],
+    url = "https://github.com/microsoft/EA-HAS-Bench",
+    packages=find_packages(),
+    include_package_data=True,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    ],
+    install_requires = [
+        'autograd>=1.3',
+        'click',
+        'Cython',
+        'ConfigSpace==0.4.12',
+        'ipython',
+        'lightgbm>=2.3.1',
+        'matplotlib',
+        'numpy==1.20.3',
+        'pandas',
+        'pathvalidate',
+        'Pillow>=7.1.2',
+        'psutil',
+        'scikit-image',
+        'scikit-learn>=0.23.1',
+        'seaborn==0.11.1',
+        'statsmodels',
+        'tqdm',
+        'xgboost',
+        'fvcore',
+        'hyperopt',
+    ]
+)
