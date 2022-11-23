@@ -23,7 +23,7 @@ setup(
         'ipython',
         'lightgbm>=2.3.1',
         'matplotlib',
-        'numpy==1.20.3',
+        'numpy==1.22.0',
         'pandas',
         'pathvalidate',
         'Pillow>=7.1.2',
