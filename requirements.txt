@@ -85,7 +85,7 @@ pathvalidate==2.5.0
 patsy==0.5.2
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==9.2.0
+Pillow==9.3.0
 portalocker==2.4.0
 prettytable==3.3.0
 prometheus-client==0.14.1
