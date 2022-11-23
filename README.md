@@ -44,7 +44,7 @@ Although training the model for a longer period is likely to yield a higher ener
 Clone this repository and install its requirements.
 ```bash
 git clone https://github.com/microsoft/EA-HAS-Bench
-cd ea_nas_bench
+cd EA-HAS-Bench
 cat requirements.txt | xargs -n 1 -L 1 pip install
 pip install -e .
 ```
