@@ -1,9 +1,9 @@
 import numpy as np
 
-from nas_bench_x11.encodings.encodings_nb101 import encode_nb101
-from nas_bench_x11.encodings.encodings_nb201 import encode_nb201
-from nas_bench_x11.encodings.encodings_nlp import encode_nlp
-from nas_bench_x11.encodings.encodings_regnet import encode_regnet
+from BSC.encodings.encodings_nb101 import encode_nb101
+from BSC.encodings.encodings_nb201 import encode_nb201
+from BSC.encodings.encodings_nlp import encode_nlp
+from BSC.encodings.encodings_regnet import encode_regnet
 
 
 def encode(arch_strings, data, search_space, nlp_max_nodes, nb101_api, cost_data=None):

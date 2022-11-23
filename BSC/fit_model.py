@@ -11,8 +11,8 @@ import click
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 
-from nas_bench_x11.utils import utils, model_dict
-from nas_bench_x11.ensemble import Ensemble
+from BSC.utils import utils, model_dict
+from BSC.ensemble import Ensemble
 
 
 @click.command()

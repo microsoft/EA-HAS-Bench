@@ -4,7 +4,7 @@ import logging
 from naslib.predictors.utils.encodings_darts import encode_darts
 from naslib.predictors.utils.encodings_nb101 import encode_101
 from naslib.predictors.utils.encodings_nlp import encode_nlp
-from nas_bench_x11.encodings.encodings_regnet import encode_regnet
+from BSC.encodings.encodings_regnet import encode_regnet
 
 """
 Currently we need search space specific methods.

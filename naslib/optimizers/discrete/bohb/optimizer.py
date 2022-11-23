@@ -9,7 +9,7 @@ import numpy as np
 from naslib.optimizers.core.metaclasses import MetaOptimizer
 
 from naslib.search_spaces.core.query_metrics import Metric
-from nas_bench_x11.encodings.encodings_regnet import encode_regnet
+from BSC.encodings.encodings_regnet import encode_regnet
 import statsmodels.api as sm
 
 from naslib.utils.utils import AttrDict, count_parameters_in_MB

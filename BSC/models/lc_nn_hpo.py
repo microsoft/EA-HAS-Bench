@@ -10,13 +10,13 @@ from torch.utils.data import TensorDataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 from scipy.optimize import curve_fit
 
-from nas_bench_x11.utils import utils
-from nas_bench_x11.surrogate_model import SurrogateModel
+from BSC.utils import utils
+from BSC.surrogate_model import SurrogateModel
 from hyperopt import fmin, tpe, hp, partial
 
-from nas_bench_x11.bezier_vis import *
-from nas_bench_x11.utils.curvefunctions import all_models, model_defaults
-from nas_bench_x11.utils.curvemodel import MLCurveModel, MCMCCurveModel
+from BSC.bezier_vis import *
+from BSC.utils.curvefunctions import all_models, model_defaults
+from BSC.utils.curvemodel import MLCurveModel, MCMCCurveModel
                 
 
 def activation(activation_fun=None):

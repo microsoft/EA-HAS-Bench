@@ -13,10 +13,10 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from torch.nn import Module
 from scipy.stats import gaussian_kde
 
-from nas_bench_x11.utils import utils
-from nas_bench_x11.surrogate_model import SurrogateModel
+from BSC.utils import utils
+from BSC.surrogate_model import SurrogateModel
 
-from nas_bench_x11.bezier_vis import *
+from BSC.bezier_vis import *
 
 
 def activation(activation_fun=None):

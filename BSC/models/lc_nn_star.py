@@ -14,11 +14,11 @@ from torch.nn import Module
 from scipy.stats import gaussian_kde
 from scipy.optimize import curve_fit
 
-from nas_bench_x11.utils import utils
-from nas_bench_x11.surrogate_model import SurrogateModel
-from nas_bench_x11.utils.curvefunctions import all_models, model_defaults
-from nas_bench_x11.utils.curvemodel import MLCurveModel, MCMCCurveModel
-from nas_bench_x11.bezier_vis import *
+from BSC.utils import utils
+from BSC.surrogate_model import SurrogateModel
+from BSC.utils.curvefunctions import all_models, model_defaults
+from BSC.utils.curvemodel import MLCurveModel, MCMCCurveModel
+from BSC.bezier_vis import *
 
 
 def activation(activation_fun=None):

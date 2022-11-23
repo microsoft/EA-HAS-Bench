@@ -11,7 +11,7 @@ import lightgbm as lgb
 import numpy as np
 
 
-from nas_bench_x11.surrogate_model import SurrogateModel
+from BSC.surrogate_model import SurrogateModel
 
 
 class LGBModel(SurrogateModel):
@@ -21,7 +21,7 @@ class LGBModel(SurrogateModel):
         self.model_config["param:objective"] = "regression"
         self.model_config["param:metric"] = "rmse"
 
-        from nas_bench_x11.utils import utils
+        from BSC.utils import utils
 
     def load_results_from_result_paths(self, result_paths):
         """

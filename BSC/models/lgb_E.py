@@ -15,8 +15,8 @@ from scipy.stats import gaussian_kde
 from sklearn.multioutput import RegressorChain
 import lightgbm as lgb
 
-from nas_bench_x11.utils import utils
-from nas_bench_x11.surrogate_model import SurrogateModel
+from BSC.utils import utils
+from BSC.surrogate_model import SurrogateModel
 
 
 class LGBEModel(SurrogateModel):

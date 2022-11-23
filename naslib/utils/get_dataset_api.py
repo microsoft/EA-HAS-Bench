@@ -3,7 +3,7 @@ import pickle
 from typing_extensions import runtime
 
 from naslib.utils.utils import get_project_root
-from nas_bench_x11.api import load_ensemble
+from BSC.api import load_ensemble
 
 """
 This file loads any dataset files or api's needed by the Trainer or PredictorEvaluator object.

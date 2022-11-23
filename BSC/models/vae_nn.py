@@ -9,8 +9,8 @@ import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 
-from nas_bench_x11.utils import utils
-from nas_bench_x11.surrogate_model import SurrogateModel
+from BSC.utils import utils
+from BSC.surrogate_model import SurrogateModel
 
 
 class VAE(nn.Module):

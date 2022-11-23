@@ -15,10 +15,10 @@ import torch
 import torch.backends.cudnn as cudnn
 
 
-from nas_bench_x11.encodings.encoding import encode
-from nas_bench_x11.encodings.encodings_regnet import encode_regnet
-from nas_bench_x11.utils.data_loaders.nb101_data import get_nb101_data
-from nas_bench_x11.utils.data_loaders.nbnlp_data import get_nbnlp_data
+from BSC.encodings.encoding import encode
+from BSC.encodings.encodings_regnet import encode_regnet
+from BSC.utils.data_loaders.nb101_data import get_nb101_data
+from BSC.utils.data_loaders.nbnlp_data import get_nbnlp_data
 
 
 class SurrogateModel(ABC):
@@ -32,7 +32,7 @@ class SurrogateModel(ABC):
         self.nb101_api = nb101_api
         self.verbose = False
 
-        from nas_bench_x11.utils import utils
+        from BSC.utils import utils
 
         # Seeding
         np.random.seed(seed)

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = 'nas_bench_x11',
+    name = 'EA-HAS-Bench',
     version = '1.0',
     author = 'Shuguang Dou, Xinyang Jiang, Cairong Zhao, Dongshen Li',
     author_email = 'xinyangjiang@microsoft.com',

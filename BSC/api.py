@@ -10,10 +10,10 @@ import json
 from pathlib import Path
 import numpy as np
 
-from nas_bench_x11.utils import representations
-from nas_bench_x11.ensemble import Ensemble
-from nas_bench_x11.encodings.encodings_nb201 import encode_nb201
-from nas_bench_x11.encodings.encodings_regnet import encode_regnet
+from BSC.utils import representations
+from BSC.ensemble import Ensemble
+from BSC.encodings.encodings_nb201 import encode_nb201
+from BSC.encodings.encodings_regnet import encode_regnet
 
 
 fixed_hyperparameters = {
