@@ -1,3 +1,7 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import math
 import numpy as np
