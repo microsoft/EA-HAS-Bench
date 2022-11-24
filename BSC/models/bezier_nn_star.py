@@ -1,3 +1,7 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+
 import logging
 import os
 import joblib
@@ -88,18 +92,12 @@ class NNSurrogateModel(nn.Module):
         hyp_embding = self.hyp_encoding(hyp_input)
 
         x = torch.cat([arch_embding, hyp_embding], 1)
-
-        # for fc, bn, drop in zip(self.fclayers, self.bnlayers, self.droplayers):
-        #     x = F.relu(fc(x))
-        #     x = drop(x)
-        # return self.outlayer(x)
         feats = self.dvn(x)
         
         start_end = F.sigmoid(self.acc(feats))
         control_points = self.out(feats)
         
         return torch.cat([100*start_end, control_points], 1)
-
         # return self.allout(feats)
 
 
@@ -361,12 +359,9 @@ class BEZIERNNSModel(SurrogateModel):
 
         print(len(GT_50), len(GT_100), len(GT_200))
         GT_metrics = utils.evaluate_learning_curve_metrics_diff_epoch([y_test_50, y_test_100, y_test_200], [GT_50, GT_100, GT_200], prediction_is_first_arg=False)
-
        
         logging.info('GT metrics %s', GT_metrics)
-
         return test_metrics
-
 
     def save(self):
         save_list = [self.model]
@@ -375,20 +370,6 @@ class BEZIERNNSModel(SurrogateModel):
     def load(self, model_path):
         model = joblib.load(model_path)
         self.model = model[0]
-
-    def evaluate(self, result_paths):
-        X_test, y_test, _ = self.load_dataset(dataset_type='test', use_full_lc=True)
-
-        self.model.eval()
-        with torch.no_grad():
-            test_pred = self.ss.inverse_transform(self.model(torch.tensor(X_test, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
-
-        y_test_final = y_test
-        test_pred_final = np.array(test_pred)
-        test_metrics = utils.evaluate_learning_curve_metrics(y_test_final, test_pred_final, prediction_is_first_arg=False)
-
-        return test_metrics, test_pred, y_test
 
     def query(self, config_dict, search_space='darts', epoch=98, use_noise=False):
         if search_space == 'darts':
