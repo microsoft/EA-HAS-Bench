@@ -70,7 +70,7 @@ nbformat==5.4.0
 nest-asyncio==1.5.5
 networkx==2.6.3
 notebook==6.4.12
-numpy==1.20.3
+numpy==1.22.0
 nvidia-ml-py==11.515.75
 ogb==1.3.2
 omegaconf==2.0.6
