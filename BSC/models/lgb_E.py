@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 import logging
 import os
 import joblib
@@ -37,7 +40,6 @@ class LGBEModel(SurrogateModel):
         return param_config
 
     def train(self):
-
         X_train, y_train, E_train, T_train = self.load_dataset(dataset_type='train', use_full_lc=True)
         X_val, y_val, E_val, T_val = self.load_dataset(dataset_type='val', use_full_lc=True)
 
@@ -92,22 +94,6 @@ class LGBEModel(SurrogateModel):
 
         return test_metrics
 
-    def validate(self):
-        X_val, y_val, _ = self.load_dataset(dataset_type='val', use_full_lc=True)
-
-        self.model.eval()
-        with torch.no_grad():
-            val_pred = self.ss.inverse_transform(self.model(torch.tensor(X_val, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
-
-        y_val_final = y_val
-        val_pred_final = np.array(val_pred)
-        valid_metrics = utils.evaluate_learning_curve_metrics(y_val_final, val_pred_final, prediction_is_first_arg=False)
-
-        logging.info('test metrics %s', valid_metrics)
-
-        return valid_metrics
-
     def save(self):
         joblib.dump(self.model, os.path.join(self.log_dir, 'surrogate_model.model'))
 
@@ -115,19 +101,6 @@ class LGBEModel(SurrogateModel):
         model = joblib.load(model_path)
         self.model = model
 
-    def evaluate(self, result_paths):
-        X_test, y_test, _ = self.load_dataset(dataset_type='test', use_full_lc=True)
-
-        self.model.eval()
-        with torch.no_grad():
-            test_pred = self.ss.inverse_transform(self.model(torch.tensor(X_test, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
-
-        y_test_final = y_test
-        test_pred_final = np.array(test_pred)
-        test_metrics = utils.evaluate_learning_curve_metrics(y_test_final, test_pred_final, prediction_is_first_arg=False)
-
-        return test_metrics, test_pred, y_test
 
     def query(self, config_dict, search_space='darts', epoch=98, use_noise=False):
         if search_space == 'darts':
