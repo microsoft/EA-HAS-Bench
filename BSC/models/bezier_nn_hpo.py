@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 import logging
 import os
 import joblib
@@ -81,11 +84,6 @@ class NNSTARSurrogateModel(nn.Module):
         hyp_embding = self.hyp_encoding(hyp_input)
 
         x = torch.cat([arch_embding, hyp_embding], 1)
-
-        # for fc, bn, drop in zip(self.fclayers, self.bnlayers, self.droplayers):
-        #     x = F.relu(fc(x))
-        #     x = drop(x)
-        # return self.outlayer(x)
         feats = self.dvn(x)
         
         start_end = F.sigmoid(self.acc(feats))
@@ -120,10 +118,6 @@ class NNSurrogateModel(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.inlayer(x))
-        # for fc, bn, drop in zip(self.fclayers, self.bnlayers, self.droplayers):
-        #     x = F.relu(fc(x))
-        #     x = drop(x)
-        # return self.outlayer(x)
         return self.dvn(x)
 
 
@@ -264,78 +258,8 @@ class BEZIERNNHPOModel(SurrogateModel):
         print('best param after transform :')
         self.argsDict_tranform(best,isPrint=True)
 
-
-
     def test(self):
-        X_test, y_test, _ = self.load_dataset(dataset_type='test', use_full_lc=True)
+      pass
 
-        self.model.eval()
-        with torch.no_grad():
-            test_pred = self.ss.inverse_transform(self.model(torch.tensor(X_test, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
 
-        y_test_final = y_test
-        test_pred_final = np.array(test_pred)
-        test_metrics = utils.evaluate_learning_curve_metrics(y_test_final, test_pred_final, prediction_is_first_arg=False)
 
-        logging.info('test metrics %s', test_metrics)
-
-        return test_metrics
-
-    def validate(self):
-        X_val, y_val, _ = self.load_dataset(dataset_type='val', use_full_lc=True)
-
-        self.model.eval()
-        with torch.no_grad():
-            val_pred = self.ss.inverse_transform(self.model(torch.tensor(X_val, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
-
-        y_val_final = y_val
-        val_pred_final = np.array(val_pred)
-        valid_metrics = utils.evaluate_learning_curve_metrics(y_val_final, val_pred_final, prediction_is_first_arg=False)
-
-        logging.info('test metrics %s', valid_metrics)
-
-        return valid_metrics
-
-    def save(self):
-        save_list = [self.model, self.ss, self.svd_s, self.svd_vh, self.num_components]
-        joblib.dump(save_list, os.path.join(self.log_dir, 'surrogate_model.model'))
-
-    def load(self, model_path):
-        model, ss, svd_s, svd_vh, num_components = joblib.load(model_path)
-        self.model = model
-        self.ss = ss
-        self.svd_s = svd_s
-        self.svd_vh = svd_vh
-        self.num_components = num_components
-
-    def evaluate(self, result_paths):
-        X_test, y_test, _ = self.load_dataset(dataset_type='test', use_full_lc=True)
-
-        self.model.eval()
-        with torch.no_grad():
-            test_pred = self.ss.inverse_transform(self.model(torch.tensor(X_test, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
-
-        y_test_final = y_test
-        test_pred_final = np.array(test_pred)
-        test_metrics = utils.evaluate_learning_curve_metrics(y_test_final, test_pred_final, prediction_is_first_arg=False)
-
-        return test_metrics, test_pred, y_test
-
-    def query(self, config_dict, search_space='darts', epoch=98, use_noise=False):
-        if search_space == 'darts':
-            config_space_instance = self.config_loader.query_config_dict(config_dict)
-            X = config_space_instance.get_array().reshape(1, -1)
-            idx = np.isnan(X)
-            X[idx] = -1
-            X = X.reshape(1, -1)
-        else:
-            X = np.array([config_dict])
-
-        self.model.eval()
-        with torch.no_grad():
-            ypred = self.ss.inverse_transform(self.model(torch.tensor(X, dtype=torch.float32)))\
-                @ np.diag(self.svd_s[:self.num_components])@self.svd_vh[:self.num_components, :]
-        return ypred[0]
