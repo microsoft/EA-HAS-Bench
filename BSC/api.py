@@ -1,8 +1,5 @@
-"""
-This file contains code based on
-https://github.com/automl/nasbench301/
-Authors: Julien Siems, Lucas Zimmer, Arber Zela, Jovita Lukasik, Margret Keuper, Frank Hutter
-"""
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
 
 
 import os
