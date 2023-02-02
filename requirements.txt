@@ -28,7 +28,7 @@ faiss-gpu==1.5.3
 fastjsonschema==2.15.3
 feather-format==0.4.1
 fonttools==4.33.3
-future==0.18.2
+future==0.18.3
 fvcore==0.1.5.post20220512
 h5py==3.7.0
 hydra-core==1.0.7
