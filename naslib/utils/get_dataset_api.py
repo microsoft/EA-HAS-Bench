@@ -71,24 +71,25 @@ def get_nasbench211_api(dataset=None,
     return full_api
 
 
-def get_nasbenchgreen_api(dataset=None, 
+def get_eahasbench_api(dataset=None, 
                         nbgreen_model_path=os.path.join('checkpoints/nbgreen-v0.2')):
 
-    full_api = get_nasbench201_api(dataset=dataset)
+    full_api = {}
     # load the nbgreen surrogate
     nbgreen_root = get_project_root()
-
+    # load the ea-nas-bench surrogate models
     if dataset=="cifar10":
-        nbgreen_model = load_ensemble(os.path.join(nbgreen_root, 'checkpoints/nbgreen-v0.2'))
-        train_energy_model = load_ensemble(os.path.join(nbgreen_root, os.path.join('checkpoints/nbgreen-trainE-v0.2')))
-        test_energy_model = load_ensemble(os.path.join(nbgreen_root, os.path.join('checkpoints/nbgreen-testE-v0.1')))
+        ea_has_bench_model = load_ensemble('checkpoints/ea_has_bench-v0.2'))
+        train_energy_model = load_ensemble('checkpoints/ea_has_bench-trainE-v0.2')
+        test_energy_model = load_ensemble('checkpoints/ea_has_bench-testE-v0.1')
+        runtime_model = load_ensemble('checkpoints/ea_has_bench-runtime-v0.1')
     elif dataset=="tiny":
-        nbgreen_model = load_ensemble(os.path.join(nbgreen_root, 'checkpoints/ea-nas-bench-tiny-v0.2'))
-        train_energy_model = load_ensemble(os.path.join(nbgreen_root, os.path.join('checkpoints/ea-nas-bench-trainE-v0.1')))
-        test_energy_model = load_ensemble(os.path.join(nbgreen_root, os.path.join('checkpoints/nbgreen-testE-v0.1')))
-
-    runtime_model = load_ensemble(os.path.join(nbgreen_root, 'checkpoints/nbgreen-runtime-v0.1'))
-    full_api['nbgreen_model'] = [nbgreen_model, runtime_model, train_energy_model, test_energy_model]
+        ea_has_bench_model = load_ensemble('checkpoints/ea-nas-bench-tiny-v0.2')
+        train_energy_model = load_ensemble('checkpoints/ea-nas-bench-trainE-v0.1')
+        test_energy_model = load_ensemble('checkpoints/ea-nas-bench-testE-v0.1')
+        runtime_model = load_ensemble('checkpoints/ea-nas-bench-runtime-v0.1')
+        
+    full_api['eahasbench'] = [nbgreen_model, runtime_model, train_energy_model, test_energy_model]
     return full_api
 
 def get_darts_api(dataset=None, learning_curves=True,
@@ -133,8 +134,8 @@ def get_dataset_api(search_space=None, dataset=None):
     elif search_space == 'nasbench211':
         return get_nasbench211_api(dataset=dataset)
 
-    elif search_space == 'nasbenchgreen':
-        return get_nasbenchgreen_api(dataset=dataset)
+    elif search_space == 'eahasbench':
+        return get_eahasbench_api(dataset=dataset)
 
     elif search_space == 'darts':
         return get_darts_api(dataset=dataset)
