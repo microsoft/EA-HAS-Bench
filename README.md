@@ -49,7 +49,7 @@ cat requirements.txt | xargs -n 1 -L 1 pip install
 pip install -e .
 ```
 ### Surrogate Models
-Download the pretrained [surrogate models]() and place them into ``BSC/checkpoints/``. The current models are v0.1. 
+Download the pretrained [surrogate models](https://1drv.ms/u/s!AvrjE3KJo-Lbjl19CWJudMmuCYLC?e=wyrBSh) and place them into ``BSC/checkpoints/``. The current models are v0.1. 
 
 NOTE: This codebase is still subject to changes. Upcoming updates include improved versions of the surrogate models and code for all experiments from the paper. The API may still be subject to changes.
 
