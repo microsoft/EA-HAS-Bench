@@ -110,24 +110,6 @@ class SurrogateModel(ABC):
                     df = feather.read_feather("/RegNet/checkpoint/sweeps/cifar/mb_v0.4/sweep.feather")
                     df_cost = feather.read_feather("/RegNet/checkpoint/sweeps/cifar/energy/sweep.feather")
 
-                df = df_cost
-                # print(cost_data[0])
-                # cost_data = [d for d in cost_data if np.mean(d["cons"]["train_cons"])>=0.01]
-                
-                # filter_data = []
-                # epoch_list = [49, 50, 51, 98, 99, 100, 101, 198, 199, 200]
-                # for i in range(len(df['test_ema_epoch'])):
-                #     if len(df['test_ema_epoch'][i]['top1_err']) in epoch_list:
-                #         filter_data.append(data[i])
-                #     else:
-                #         print(i, len(data['test_ema_epoch'][i]['top1_err']))
-                # data = filter_data
-
-                # data = [d for d in data if len(d['test_ema_epoch']['top1_err'])==200 or len(d['test_ema_epoch']['top1_err'])==100 or len(d['test_ema_epoch']['top1_err'])==50]
-
-                # print(cost_data[0]['train_epoch']['time_epoch'])
-                # raise SystemExit
-
                 np.random.seed(0)
                 arch_strings = df["cfg"]
                 # find repeated configs
@@ -138,49 +120,7 @@ class SurrogateModel(ABC):
                 else:
                     print(unq[count>1])
                     assert unq[count>1].shape != (0, x.shape[1]), "There are repeated configs!!!"
-
-                # only arch
-                # x = np.array([encode_regnet(arch_str)[:5] for arch_str in arch_strings])
-                # unq, count = np.unique(x, axis=0, return_counts=True)
-                # if unq[count>1].shape == (0, x.shape[1]):
-                #     print("All arch configs are unique！")
-                # else:
-                #     print(unq[count>1])
-                #     print("There are repeated arch configs!!!") 
-
-                # # only hp-config
-                # x = np.array([encode_regnet(arch_str)[5:] for arch_str in arch_strings])
-                # unq, count = np.unique(x, axis=0, return_counts=True)
-                # if unq[count>1].shape == (0, x.shape[1]):
-                #     print("All hp configs are unique！")
-                # else:
-                #     print(unq[count>1])
-                #     print("There are repeated hp configs!!!") 
-
-                # all_list = []
-                # for i in range(len(lr_list)):
-                #     for j in range(len(optim_list)):
-                #         lr_optim = str(lr_list[i])+optim_list[j]
-                #         all_list.append(lr_optim)
-
-                # combine_one_hot = [0 for i in range(len(all_list))]
-                # index = all_list.index(str(lr)+optim)
-                # train_cost = []
-                # arch_strings = []
-                # epochs = []
-                # for d, d_cost in zip(data, cost_data):
-                #     error = d['test_ema_epoch']['top1_err']
-                #     if error[-1] < 90:
-                #         epoch =  d["cfg"]["OPTIM"]["MAX_EPOCH"]
-                #     else:
-                #         arch_strings.append(d["cfg"])
-                #         for i in range(len(error)):
-                #             if error[i] > 90:
-                #                 epoch = i
-                #                 break
-                #         epochs.append(epoch)
-                #         train_cost.append(epoch*np.mean(d_cost["cons"]["train_cons"]))
-
+                    
                 ### split to train, val and test dataset
                 test_data = df[:1000]
                 E_test_data = df_cost[:1000]
