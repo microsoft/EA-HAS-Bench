@@ -126,9 +126,9 @@ python fit_model.py --search_space regnet --model bezier_nn_STAR
 
 ## Citation
 ```bibtex
-@inproceedings{Dou, Shuguang and JIANG, XINYANG and Zhao, Cai Rong and Li, Dongsheng,
+@inproceedings{ea23iclr,
 title={{EA}-{HAS}-Bench: Energy-aware Hyperparameter and Architecture Search Benchmark},
-author={Anonymous},
+author={Dou, Shuguang and JIANG, XINYANG and Zhao, Cai Rong and Li, Dongsheng},
 booktitle={International Conference on Learning Representations },
 year={2023},
 url={https://openreview.net/forum?id=n-bvaLSCC78},
