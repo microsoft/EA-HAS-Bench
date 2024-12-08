@@ -73,7 +73,6 @@ nvidia-ml-py==11.515.75
 ogb==1.3.2
 omegaconf==2.0.6
 opencv-python-headless==4.6.0.66
-orion.algo.extrapol==0.post10+g49d6362
 outdated==0.2.1
 packaging==21.3
 pandas==1.3.5
